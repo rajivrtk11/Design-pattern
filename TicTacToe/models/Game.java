@@ -112,6 +112,7 @@ public class Game {
         if(checkWinner(board, finalMoveObject)) {
             this.gameState = GameState.WIN;
             this.winner = currentMovePlayer;
+            System.out.println(currentMovePlayer.getName()+" is the winner!!");
         }
         if(moves.size() == board.getSize()*board.getSize()){
             this.gameState = GameState.DRAW;
