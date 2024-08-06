@@ -4,6 +4,15 @@ import ParkingLot.Model.Ticket;
 
 public class IssueTicketResponseDTO {
     private Ticket ticket;
+    private ResponseStatus responseStatus;
+
+    public ResponseStatus getResponseStatus() {
+        return responseStatus;
+    }
+
+    public void setResponseStatus(ResponseStatus responseStatus) {
+        this.responseStatus = responseStatus;
+    }
 
     public Ticket getTicket() {
         return ticket;

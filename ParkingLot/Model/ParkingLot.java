@@ -1,7 +1,7 @@
 package ParkingLot.Model;
 
 import ParkingLot.Strategy.FeesCalculatorStrategy;
-import ParkingLot.Strategy.SpotAssignmentStrategy;
+import ParkingLot.Strategy.SpotAssignmentStrategy.SpotAssignmentStrategy;
 
 import java.util.List;
 
