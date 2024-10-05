@@ -1,4 +1,4 @@
-package factoryDp;
+package designPatterns.factoryDp;
 
 public class MySql implements Database {
 

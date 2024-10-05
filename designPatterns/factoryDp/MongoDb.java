@@ -1,6 +1,4 @@
-package factoryDp;
-
-import javax.xml.crypto.Data;
+package designPatterns.factoryDp;
 
 public class MongoDb implements Database {
 

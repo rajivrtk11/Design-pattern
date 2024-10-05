@@ -1,13 +1,4 @@
-import abstractClass.B;
-import builderDp.Student;
-import factoryDp.Database;
-import factoryDp.MongoDb;
-import factoryDp.MySql;
-import hello.Hello;
-import inheritance.D;
 import singletonDp.Dbc;
-
-import java.sql.Struct;
 
 public class Main {
     public static void main(String[] args) {

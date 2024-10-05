@@ -1,4 +1,4 @@
-package builderDp;
+package designPatterns.builderDp;
 
 public class Student {
     private String fName;
