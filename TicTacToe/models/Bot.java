@@ -17,6 +17,7 @@ public class Bot extends Player{
         return botDifficultyLevel;
     }
 
+    @Override
     public Move makeMove(Board board) {
         Move move = this.botPlayingStrategy.makeMove(board);
         move.setPlayer(this);

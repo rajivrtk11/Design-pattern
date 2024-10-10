@@ -1,4 +1,4 @@
-package singletonDp;
+package designPatterns.singletonDp;
 
 public class Dbc {
     private static Dbc connectionUrl;
