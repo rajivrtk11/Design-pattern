@@ -8,6 +8,16 @@ public class ParkingSpot extends BaseModel{
     private ParkingFloor parkingFloor;
     private int spotNumber;
 
+    @Override
+    public String toString() {
+        return "ParkingSpot{" +
+                "supportedVehileTypes=" + (supportedVehileTypes != null ? supportedVehileTypes.toString() : "null") +
+                ", parkingSpotStatus=" + (parkingSpotStatus != null ? parkingSpotStatus.toString() : "null") +
+                ", parkingFloor=" + (parkingFloor != null ? parkingFloor.toString() : "null") +
+                ", spotNumber=" + spotNumber +
+                '}';
+    }
+
     public List<Vehicle> getSupportedVehileTypes() {
         return supportedVehileTypes;
     }

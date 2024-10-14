@@ -5,6 +5,15 @@ public class Gate extends BaseModel{
     private int gateNumber;
     private GateStatus gateStatus;
 
+    @Override
+    public String toString() {
+        return "Gate{" +
+                "gateType=" + (gateType != null ? gateType.toString() : "null") +
+                ", gateNumber=" + gateNumber +
+                ", gateStatus=" + (gateStatus != null ? gateStatus.toString() : "null") +
+                '}';
+    }
+
     public GateType getGateType() {
         return gateType;
     }

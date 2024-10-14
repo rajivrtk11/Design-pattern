@@ -7,6 +7,15 @@ public class ParkingFloor extends BaseModel {
     private List<ParkingSpot> parkingSpots;
     private FloorStatus floorStatus;
 
+    @Override
+    public String toString() {
+        return "ParkingFloor{" +
+                "floorNumber=" + floorNumber +
+                ", parkingSpots=" + (parkingSpots != null ? parkingSpots.toString() : "null") +
+                ", floorStatus=" + (floorStatus != null ? floorStatus.toString() : "null") +
+                '}';
+    }
+
     public int getFloorNumber() {
         return floorNumber;
     }

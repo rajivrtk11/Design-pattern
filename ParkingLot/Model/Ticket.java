@@ -9,6 +9,17 @@ public class Ticket extends BaseModel{
     private ParkingSpot assignedSpot;
     private Gate generatedAt;
 
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "vehicle=" + (vehicle != null ? vehicle.toString() : "null") +
+                ", entryTime=" + (entryTime != null ? entryTime.toString() : "null") +
+                ", number=" + (number != null ? number : "null") +
+                ", assignedSpot=" + (assignedSpot != null ? assignedSpot.toString() : "null") +
+                ", generatedAt=" + (generatedAt != null ? generatedAt.toString() : "null") +
+                '}';
+    }
+
     public Gate getGeneratedAt() {
         return generatedAt;
     }
