@@ -1,4 +1,7 @@
 package parkingLot2.Model;
 
-public class PaymentStatus {
+public enum PaymentStatus {
+    SUCCESS,
+    PENDING,
+    FAILED,
 }

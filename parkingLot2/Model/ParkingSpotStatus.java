@@ -1,4 +1,7 @@
 package parkingLot2.Model;
 
-public class ParkingSpotStatus {
+public enum ParkingSpotStatus {
+    AVAILABLE,
+    BLOCKED,
+    OCCUPIED,
 }
