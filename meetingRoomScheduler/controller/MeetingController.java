@@ -23,7 +23,7 @@ public class MeetingController {
         MeetingScheduler meetingScheduler = new MeetingScheduler(admin, participants, allRoom, meetingDetails);
         List<MeetingRoom> allRooms = meetingScheduler.getAllAvailableRooms(new Date(), new Date(System.currentTimeMillis()+30*60*1000), 3);
 
-        Calender bookSlot = new Calender(new Date(), new Date(System.currentTimeMillis()+30*60*1000));
+        Calender bookSlot = new Calender(new Date(), new Date(System.currentTimeMillis()+30*60*1000), meetingDetails);
 
         if(allRooms.size() > 1) {
             meetingScheduler.bookMeetingRoom(allRooms.get(0), bookSlot);
@@ -34,7 +34,8 @@ public class MeetingController {
 
         // book 2nd meeting
         allRooms = meetingScheduler.getAllAvailableRooms(new Date(), new Date(System.currentTimeMillis()+30*60*1000), 3);
-        if(allRooms.size() > 1) {
+//        System.out.println("all rooms" +allRooms);
+        if(allRooms.size() >= 1) {
             meetingScheduler.bookMeetingRoom(allRooms.get(0), bookSlot);
         }
         else {
@@ -44,7 +45,7 @@ public class MeetingController {
         // book 3rd meeting
         allRooms = meetingScheduler.getAllAvailableRooms(new Date(), new Date(System.currentTimeMillis()+30*60*1000), 3);
 
-        if(allRooms.size() > 1) {
+        if(allRooms.size() >= 1) {
             meetingScheduler.bookMeetingRoom(allRooms.get(0), bookSlot);
         }
         else {

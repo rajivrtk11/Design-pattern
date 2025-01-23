@@ -5,10 +5,12 @@ import java.util.Date;
 public class Calender {
     Date startTime;
     Date endTime;
+    MeetingDetails meetingDetails;
 
-    public Calender(Date startTime, Date endTime) {
+    public Calender(Date startTime, Date endTime, MeetingDetails meetingDetails) {
         this.startTime = startTime;
         this.endTime = endTime;
+        this.meetingDetails = meetingDetails;
     }
 
     @Override
