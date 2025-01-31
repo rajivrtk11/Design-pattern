@@ -42,7 +42,7 @@ public class ParkingDataRepository {
     }
 
     public List<ParkingSlot> getAllParkingSlotData(int floorId) {
-        parkingSlotData.forEach(parkingSlot -> parkingSlot.setSlotId(floorId));
+        parkingSlotData.forEach(parkingSlot -> parkingSlot.setFloorId(floorId));
         return parkingSlotData;
     }
 

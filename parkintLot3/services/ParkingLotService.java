@@ -6,7 +6,6 @@ import parkintLot3.repository.ParkingDataRepository;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ParkingLotService {
     HashMap<String, Vehicle> vehicleHashMap;
@@ -125,7 +124,7 @@ public class ParkingLotService {
         for(ParkingFloor parkingFloor: parkingFloors) {
             List<ParkingSlot> parkingSlots = getAvailableVehicleTypeParkingSlot(parkingFloor.getParkingSlots(), vehicleType);
             for(ParkingSlot parkingSlot: parkingSlots) {
-                if(parkingSlot.getVehicleType().equals(vehicleType)) {
+                if(parkingSlot.getVehicleType().equals(vehicleType) && parkingSlot.isFree()) {
                     return parkingSlot;
                 }
             }
