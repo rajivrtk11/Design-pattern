@@ -2,6 +2,7 @@ import designPatterns.singletonDp.Dbc;
 
 public class Main {
     public static void main(String[] args) {
+
 //        Hello obj = new Hello();
 //        obj.getText();
 //        System.out.println("hello world rajiv");
@@ -23,7 +24,9 @@ public class Main {
 //                .setWeight("32")
 //                .build();
 //        System.out.println(st.getWeight());
-        Dbc url = Dbc.createConnection();
-        System.out.println("connection is"+ url);
+//        Dbc url = Dbc.createConnection();
+//        System.out.println("connection is"+ url);
+        System.out.println(Test.RAJIV);
+        System.out.println(Test.RAJIV.getNameFrom("rajiv"));
     }
 }
