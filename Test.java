@@ -1,19 +1,24 @@
+import java.util.Objects;
+
 public enum Test {
     RAJIV("rajiv"),
     MODIN("modin"),
     VINAY("vinay");
 
     String name;
-    Test(String name) {
-        this.name = name;
+    Test(String str) {
+        this.name = str;
     }
 
-    public String getName() { return this.name; };
+    public String getName(){
+        return this.name;
+    }
 
-    public Test getNameFrom(String value) {
-        for(Test test: values()) {
-             if(test.name == value) return test;
+    public static Test getFromString(String str) {
+        for(Test t: values()) {
+            if(Objects.equals(t.name, str)) return t;
         }
-        return null;
+
+        throw new IllegalArgumentException("No matching status found for given description: "+ str);
     }
 }

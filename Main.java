@@ -1,4 +1,7 @@
-import designPatterns.singletonDp.Dbc;
+import hello.Hello;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,7 +29,9 @@ public class Main {
 //        System.out.println(st.getWeight());
 //        Dbc url = Dbc.createConnection();
 //        System.out.println("connection is"+ url);
-        System.out.println(Test.RAJIV);
-        System.out.println(Test.RAJIV.getNameFrom("rajiv"));
+        Test t = Test.RAJIV;
+        Hello hello = new Hello();
+
+        System.out.println("rajiv si "+ Test.getFromString("rajiv"));
     }
 }

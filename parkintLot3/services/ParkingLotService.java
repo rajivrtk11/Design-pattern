@@ -43,7 +43,7 @@ public class ParkingLotService {
             Vehicle vehicle = vehicleHashMap.get(ticketId);
             ParkingSlot parkingSlot = vehicle.getParkingSlot();
             parkingSlot.setFree(true);
-            parkingLot.getParkingFloors().get(parkingSlot.getFloorId()).getParkingSlots().get(parkingSlot.getSlotId()).setFree(true);
+//            parkingLot.getParkingFloors().get(parkingSlot.getFloorId()).getParkingSlots().get(parkingSlot.getSlotId()).setFree(true);
             vehicleHashMap.remove(ticketId);
             System.out.println("Unparked vehicle with Registration Number:" + vehicle.getVehicleRegisterNo()+
                     "and color:"+ vehicle.getColor());
