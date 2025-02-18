@@ -13,9 +13,9 @@ public class Java8MethodCheatSheet {
         List<Employee> employees = EmployeeDataBase.getAllEmployees();
 
         // forEach
-        employees.forEach(e-> System.out.println(e.getName()+" : "+e.getSalary()));
+//        employees.forEach(e-> System.out.println(e.getName()+" : "+e.getSalary()));
 
-        employees.stream().forEach(System.out::println);
+//        employees.stream().forEach(System.out::println);
 
         //filter
         //.collect
@@ -93,10 +93,15 @@ public class Java8MethodCheatSheet {
 
         //System.out.println(employeeGroupNames);
 
+        Map<String, Optional<Employee>> employeeGroupMaxSalaryByDept = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDept,
+                        Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))
+                ));
+
         //Gender -> [count]
         Map<String, Long> employeeGroupCountMap = employees.stream()
                 .collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
-        System.out.println(employeeGroupCountMap);
+//        System.out.println(employeeGroupCountMap);
 
         //findFirst
 
@@ -113,7 +118,7 @@ public class Java8MethodCheatSheet {
 //
 //        findFirstElement.ifPresent(e-> System.out.println(e.getName()));
 
-        //System.out.println(findFirstElement);
+//        System.out.println(findFirstElement);
 
         //findAny
 
@@ -147,7 +152,7 @@ public class Java8MethodCheatSheet {
                 .limit(4)
                 .collect(Collectors.toList());
 
-        topPaidEmployees.forEach(e-> System.out.println(e.getName()));
+//        topPaidEmployees.forEach(e-> System.out.println(e.getName()));
 
         //skip(long)
         List<Employee> skipEmployees = employees.stream().skip(10)
@@ -155,22 +160,22 @@ public class Java8MethodCheatSheet {
 
 
 //
-//        forEach(Consumer)
-//        filter(Predicate)
-//        collect(Collector)
-//        map(Function)
-//        distinct()
-//        flatMap(Function)
-//        sorted(Comparator both ASC and DESC)
-//        min() & max()
-//        GroupBy
-//        findFirst()
-//        findAny()
-//        anyMatch(Predicate)
-//        allMatch(Predicate)
-//        noneMatch(Predicate)
-//        limit(long maxSize)
-//        skip(long n)
+//      1. forEach(Consumer)
+//      2. filter(Predicate)
+//      3. collect(Collector)
+//      4. map(Function)
+//      5. distinct()
+//      6. flatMap(Function)
+//      7. sorted(Comparator both ASC and DESC)
+//      8. min() & max()
+//      9. GroupBy
+//      10. findFirst()
+//      11. findAny()
+//      12. anyMatch(Predicate)
+//      13. allMatch(Predicate)
+//      14. noneMatch(Predicate)
+//      15. limit(long maxSize)
+//      16. skip(long n)
 
 
     }

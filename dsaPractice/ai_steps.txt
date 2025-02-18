@@ -1,0 +1,10 @@
+// steps to run chainlit
+python3 -m venv venv
+source venv/bin/activate
+pip3 list langchain-community
+pip3 install --upgrade langchain
+pip3 uninstall langchain-community
+pip3 list langchain
+pip3 install --upgrade langchain-community
+pip3 uninstall langchain-community
+chainlit run langchain_gemma_ollama.py
