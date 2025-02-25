@@ -1,6 +1,8 @@
 package streamApi;
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,14 +48,11 @@ public class Java8MethodCheatSheet {
                 .collect(Collectors.toList());
 
         //System.out.println(projects);
-
-
         //sorted
         //asc
         List<Employee> ascSortedEmployees = employees.stream()
                 .sorted(Comparator.comparing(Employee::getSalary))
                 .collect(Collectors.toList());
-
 //        ascSortedEmployees.get(0);
 
         //ascSortedEmployees.forEach(System.out::println);

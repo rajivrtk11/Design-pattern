@@ -20,7 +20,6 @@ public class Main {
 //                parkingLotService.createParkingLot(new ParkingLot(scn.next(), scn.nextInt(), scn.nextInt()));
 //            }
             Command command = Command.getFromCommand(scn.next());
-            ParkingLotService clone = (ParkingLotService) parkingLotService.clone();
 
             System.out.println("command "+ command);
             switch (command) {

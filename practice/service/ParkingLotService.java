@@ -28,10 +28,6 @@ public class ParkingLotService {
         );
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
     public void parkVehicle(VehicleType vehicleType, String registrationNo, String color) {
         ParkingSlots firstAvailableSlot = getFirstAvailableSlot(vehicleType);
     }
