@@ -157,7 +157,40 @@ public class Java8MethodCheatSheet {
         List<Employee> skipEmployees = employees.stream().skip(10)
                 .collect(Collectors.toList());
 
+        String str = "hello";
 
+        // Step 1: Create a frequency map of characters
+        Map<Character, Long> charCount = str.chars()
+                .mapToObj(c -> (char) c)
+                .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
+
+        // Step 2: Process the Map using Streams
+
+        // ✅ Convert Map to a List of Strings (formatted as "char=count")
+        List<String> charList = charCount.entrySet().stream()
+                .map(entry -> entry.getKey() + "=" + entry.getValue()) // Convert entry to a formatted string
+                .collect(Collectors.toList());
+
+//        System.out.println("Character Count List: " + charList);
+
+        // ✅ Filter characters appearing more than once
+        Map<Character, Long> filteredMap = charCount.entrySet().stream()
+                .filter(entry -> entry.getValue() > 1) // Keep only characters with count > 1
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+//        System.out.println("Filtered Map (count > 1): " + filteredMap);
+
+        // ✅ Sort the Map by count in descending order
+        LinkedHashMap<Character, Long> sortedMap = charCount.entrySet().stream()
+                .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue())) // Sort by value (count) descending
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1, // Merge function (not needed here)
+                        LinkedHashMap::new // Maintain order
+                ));
+
+//        System.out.println("Sorted Map (Descending Order by Count): " + sortedMap);
 //
 //      1. forEach(Consumer)
 //      2. filter(Predicate)

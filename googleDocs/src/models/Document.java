@@ -8,6 +8,7 @@ public class Document {
     private String title;
     private List<DocumentElement> elements;
     private List<Revision> revisions;
+    private List<?> list;
 
     public Document(int docId, String title) {
         this.docId = docId;
