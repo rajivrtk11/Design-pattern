@@ -1,6 +1,4 @@
-import java.util.Date;
-
-public class Ukg {
+public class Interview {
     public static void main(String[] args) {
         /*
           Implement the CustomStack class:

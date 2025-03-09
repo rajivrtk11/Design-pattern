@@ -1,9 +1,13 @@
 package streamApi;
 
 
+import javax.swing.text.html.Option;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.Flow;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -190,6 +194,32 @@ public class Java8MethodCheatSheet {
                         LinkedHashMap::new // Maintain order
                 ));
 
+        // find second highest paid employee in each department
+//        Map<String, String> secondHighestPaidEmpDepartmentwise = employees.stream().collect(Collectors.groupingBy(Employee::getDept, Collectors.collectingAndThen(
+//                Collectors.toList(),
+//                list -> list.stream().sorted(Comparator.comparingDouble(Employee::getSalary).reversed()).distinct()
+//                        .map(e -> e.getName() + " " + e.getSalary()).skip(1).findFirst().orElse("Not found")
+//        )));
+//        System.out.println("SecondHighestPaidEmpDepartmentwise paid employee in each department "+ secondHighestPaidEmpDepartmentwise);
+
+        Map<String, Optional<String>> secondHighestPaidEmpDepartmentwise =
+                employees.stream()
+                        .collect(Collectors.groupingBy(
+                                Employee::getDept,
+                                Collectors.collectingAndThen(
+                                        Collectors.toList(),
+                                        list -> list.stream()
+                                                .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
+                                                .skip(1) // Skip the highest-paid employee
+                                                .findFirst() // Get the second highest
+                                                .map(e -> e.getName() + " " + e.getSalary()) // Convert to String
+                                )
+                        ));
+
+
+        // Print results
+        secondHighestPaidEmpDepartmentwise.forEach((dept, emp) ->
+                System.out.println(dept + " -> " + emp.orElse("Not found")));
 //        System.out.println("Sorted Map (Descending Order by Count): " + sortedMap);
 //
 //      1. forEach(Consumer)
@@ -208,7 +238,5 @@ public class Java8MethodCheatSheet {
 //      14. noneMatch(Predicate)
 //      15. limit(long maxSize)
 //      16. skip(long n)
-
-
     }
 }
