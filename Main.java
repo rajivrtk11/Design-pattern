@@ -1,101 +1,71 @@
 import hello.Hello;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
+class Student {
+    public int id;
+    public String name;
+    public List<String> courses;
+
+    public Student(int id, String name, List<String> courses) {
+        this.id = id;
+        this.name = name;
+        this.courses = courses;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<String> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<String> courses) {
+        this.courses = courses;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", courses=" + courses +
+                '}';
+    }
+}
 public class Main {
-    static int[] parent;
-
-    // Find function with path compression
-    public static int find(int x) {
-        if (parent[x] != x) {
-            parent[x] = find(parent[x]);
-        }
-        return parent[x];
-    }
-
-    // Union function to connect two indices
-    public static void union(int x, int y) {
-        int rootX = find(x);
-        int rootY = find(y);
-        if (rootX != rootY) {
-            parent[rootY] = rootX;
-        }
-    }
-
-    public static String getAlphabeticallyMinimalString(String s, List<Integer> arr, List<Integer> brr) {
-        int n = s.length();
-        char[] charArray = s.toCharArray();
-        parent = new int[n];
-
-        // Initialize the parent array
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;
-        }
-
-        // Connect indices using union operation
-        for (int i = 0; i < arr.size(); i++) {
-            union(arr.get(i), brr.get(i));
-        }
-
-        // Group characters belonging to the same set
-        Map<Integer, List<Integer>> groups = new HashMap<>();
-        for (int i = 0; i < n; i++) {
-            int root = find(i);
-            groups.computeIfAbsent(root, k -> new ArrayList<>()).add(i);
-        }
-
-        // Sort characters in each group and place them in lexicographical order
-        for (List<Integer> group : groups.values()) {
-            List<Character> chars = new ArrayList<>();
-            for (int index : group) {
-                chars.add(charArray[index]);
-            }
-            Collections.sort(chars);
-
-            // Replace original indices with sorted characters
-            for (int i = 0; i < group.size(); i++) {
-                charArray[group.get(i)] = chars.get(i);
-            }
-        }
-
-        return new String(charArray);
-    }
-
     public static void main(String[] args) {
+        List<Student> studentList = new ArrayList<>();
+        studentList.add(new Student(1, "Rajiv", Arrays.asList("course1", "course2")));
+        studentList.add(new Student(2, "Sachin", Arrays.asList("course1")));
+        studentList.add(new Student(3, "Modin", Arrays.asList("course2")));
 
-//        Hello obj = new Hello();
-//        obj.getText();
-//        System.out.println("hello world rajiv");
-//        D d = new Ds
-//        b.eat();
-//        System.out.println();
+        Map<String, List<String>> collect = studentList.stream().flatMap(s -> s.courses.stream().map(s1 -> new AbstractMap.SimpleEntry<>(s1, s.name)))
+                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.mapping(Map.Entry::getValue, Collectors.toList())));
 
-//        MySql db = new MySql();
-//        db.createQuery();
-//        db.createConnection();
-//
-//        Database db1 = new MongoDb();
-//        db1.createQuery();
+        List<String[]> list = studentList.stream().flatMap(s -> s.courses.stream().map(s1 -> new String[]{s1, s.getName()})).toList();
 
-//        Student st = Student.createBuilder()
-//                .setAge("12")
-//                .setfName("Rajiv")
-//                .setlName("singh")
-//                .setWeight("32")
-//                .build();
-//        System.out.println(st.getWeight());
-//        Dbc url = Dbc.createConnection();
-//        System.out.println("connection is"+ url);
-//        Test t = Test.RAJIV;
-//        Hello hello = new Hello();
-//
-//        System.out.println("rajiv si "+ Test.getFromString("rajiv"));
-        String s = "dcba";
-        List<Integer> arr = Arrays.asList(0, 1, 2);
-        List<Integer> brr = Arrays.asList(1, 2, 3);
-        String alphabeticallyMinimalString = getAlphabeticallyMinimalString(s, arr, brr);
-        System.out.println(alphabeticallyMinimalString);
+        Map<String, List<String>> collect1 = list.stream().collect(Collectors.groupingBy(e -> e[0], Collectors.mapping(e -> e[1], Collectors.toList())));
+//      System.out.println("Course vs student mapping "+ collect);
+        System.out.println("mapping "+ collect1);
+
     }
 }

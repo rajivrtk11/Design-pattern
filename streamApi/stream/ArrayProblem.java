@@ -32,7 +32,8 @@ public class ArrayProblem {
         //System.out.println("numbers starts with 1 : "+Arrays.toString(mStrings));
 
         //Find duplicate element in the array
-        List<Integer> duplicates = Arrays.stream(arr).boxed().collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
+        List<Integer> duplicates = Arrays.stream(arr).boxed()
+                .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
                 .entrySet().stream().filter(x -> x.getValue() > 1).map(Entry::getKey).collect(Collectors.toList());
         //System.out.println("Duplicate elements of the array : "+duplicates);
 

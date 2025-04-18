@@ -221,7 +221,27 @@ public class Java8MethodCheatSheet {
         secondHighestPaidEmpDepartmentwise.forEach((dept, emp) ->
                 System.out.println(dept + " -> " + emp.orElse("Not found")));
 //        System.out.println("Sorted Map (Descending Order by Count): " + sortedMap);
-//
+
+//      Sort map in normal and reversed order
+        Map<String, Integer> map = new HashMap<>();
+        map.put("a", 4);
+        map.put("b", 3);
+        map.put("c", 2);
+        map.put("d", 1);
+
+//        Map<String, Integer> collect = map.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getValue).reversed()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,(e1, e2) -> e1, LinkedHashMap::new));
+        Map<String, Integer> collect = map.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+
+//        System.out.println(collect);
+
 //      1. forEach(Consumer)
 //      2. filter(Predicate)
 //      3. collect(Collector)
