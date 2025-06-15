@@ -4,3 +4,6 @@ Make a restaurant booking application.
 2. Show the list of restaurant.
    filter:
    name, pincode, food item.
+
+Entity
+1. Restaurant

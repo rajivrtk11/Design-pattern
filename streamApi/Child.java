@@ -16,15 +16,3 @@ class Project{
     private String client;
     private String buLeadName;
 }
-
-interface Base {
-    CharSequence hi();
-}
-
-public class Child implements Base {
-
-    @Override
-    public String  hi() {
-        return "";
-    }
-}
