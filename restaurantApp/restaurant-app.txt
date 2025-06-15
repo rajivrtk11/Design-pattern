@@ -1,0 +1,6 @@
+Make a restaurant booking application.
+1. Add restaurant. ->
+    id, name, pincode, state, city, food available.
+2. Show the list of restaurant.
+   filter:
+   name, pincode, food item.
