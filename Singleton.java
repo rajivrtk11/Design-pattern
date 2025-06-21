@@ -22,11 +22,11 @@ public class Singleton {
     // 1. Show all the tickets for the bus
     // 2. Make the booking
 
-    // User, Bus, Ticket, Booking, Payment
+    // User, Bus, Seat, Booking, Payment
     // User => name, email, phoneNumber, password, username, city, state, paymentStatus
     // Bus => id, registrationNumber, Name, totalSeat, vaccantSeat, filledSeat, price
-    // Ticket => id, issueDate, journeyDate, busNumber,
-    // Booking => List<User> user, Ticket ticket;
+    // Seat => id, issueDate, journeyDate, busNumber,
+    // Booking => List<User> user, Seat ticket;
     // Payment => json payload, response code, json response, status(Succeed/Failed)
 
 

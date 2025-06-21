@@ -36,7 +36,7 @@ public class ParkingLotService {
             String ticket = generateTicket(parkingSlot);
             vehicle.setTicketId(ticket);
             vehicleHashMap.put(ticket,vehicle);
-            System.out.println("Parked vehicle. Ticket ID: "+ ticket);
+            System.out.println("Parked vehicle. Seat ID: "+ ticket);
         }
     }
 
@@ -51,7 +51,7 @@ public class ParkingLotService {
                     "and Color:"+ vehicle.getColor());
         }
         else
-            System.out.println("Invalid Ticket");
+            System.out.println("Invalid Seat");
     }
 
     public void display(DisplayType displayType, VehicleType vehicleType) {

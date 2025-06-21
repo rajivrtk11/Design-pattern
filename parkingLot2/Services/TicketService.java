@@ -35,7 +35,7 @@ public class TicketService {
      * For vehicle creation part
      * 1. Check if vehicle is already is in DB
      * 2. Yes: Get the vehicle from DB and add it to the ticket.
-     * 3. No: Create New Vehicle, save it to DB, and now add it to the Ticket.
+     * 3. No: Create New Vehicle, save it to DB, and now add it to the Seat.
      */
     public Ticket issueTicket(VehicleType vehicleType, String vehicleNumber, Long gateId) throws GateNotFoundException {
         Ticket ticket = new Ticket();

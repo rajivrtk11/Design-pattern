@@ -14,67 +14,67 @@ public class Main {
     public static void main(String[] args) {
         ParkingLotService parkingLotService = new ParkingLotService();
 
-//        while (true) {
-//            Scanner scan = new Scanner(System.in);
-//            Command type = Command.of(scan.next());
-//            switch (type) {
-//                case CREATE_PARKING_LOT -> {
-//                    parkingLotService.createParkingLot(new ParkingLot(scan.next(), scan.nextInt(), scan.nextInt()));
-//                }
-//                case PARK_VEHICLE -> parkingLotService.parkVehicle(VehicleType.valueOf(scan.next()), scan.next(), scan.next());
-//                case UNPARK_VEHICLE -> parkingLotService.unParkVehicle(scan.next());
-//                case DISPLAY -> parkingLotService.display(DisplayType.of(scan.next()), VehicleType.valueOf(scan.next()));
-//                case EXIT -> {
-//                    return;
+        while (true) {
+            Scanner scan = new Scanner(System.in);
+            Command type = Command.of(scan.next());
+            switch (type) {
+                case CREATE_PARKING_LOT -> {
+                    parkingLotService.createParkingLot(new ParkingLot(scan.next(), scan.nextInt(), scan.nextInt()));
+                }
+                case PARK_VEHICLE -> parkingLotService.parkVehicle(VehicleType.valueOf(scan.next()), scan.next(), scan.next());
+                case UNPARK_VEHICLE -> parkingLotService.unParkVehicle(scan.next());
+                case DISPLAY -> parkingLotService.display(DisplayType.of(scan.next()), VehicleType.valueOf(scan.next()));
+                case EXIT -> {
+                    return;
+                }
+            }
+        }
+//        Object obj = new Object();
+//
+//
+//        Runnable evenNumber = () -> {
+//            while(min <= max) {
+//                synchronized (obj) {
+//                    if(min%2 == 0) {
+//                        System.out.println("Current no by even thread: "+ min);
+//                        min++;
+//                        obj.notify();
+//                    }
+//                    else {
+//                        try {
+//                            obj.wait();
+//                        } catch (InterruptedException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
 //                }
 //            }
-//        }
-        Object obj = new Object();
-
-
-        Runnable evenNumber = () -> {
-            while(min <= max) {
-                synchronized (obj) {
-                    if(min%2 == 0) {
-                        System.out.println("Current no by even thread: "+ min);
-                        min++;
-                        obj.notify();
-                    }
-                    else {
-                        try {
-                            obj.wait();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            }
-        };
-
-        Runnable oddNumber = () -> {
-            while(min <= max) {
-                synchronized (obj) {
-                    if(min%2 != 0) {
-                        System.out.println("Current no by odd thread: "+ min);
-                        min++;
-                        obj.notify();
-                    }
-                    else {
-                        try {
-                            obj.wait();
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
-            }
-        };
-
-        Thread evenThread = new Thread(evenNumber);
-        Thread oddThread = new Thread(oddNumber);
-
-        evenThread.start();
-        oddThread.start();
+//        };
+//
+//        Runnable oddNumber = () -> {
+//            while(min <= max) {
+//                synchronized (obj) {
+//                    if(min%2 != 0) {
+//                        System.out.println("Current no by odd thread: "+ min);
+//                        min++;
+//                        obj.notify();
+//                    }
+//                    else {
+//                        try {
+//                            obj.wait();
+//                        } catch (InterruptedException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
+//                }
+//            }
+//        };
+//
+//        Thread evenThread = new Thread(evenNumber);
+//        Thread oddThread = new Thread(oddNumber);
+//
+//        evenThread.start();
+//        oddThread.start();
     }
 }
 //create_parking_lot PR1234 2 6

@@ -11,7 +11,7 @@ public class Ticket extends BaseModel{
 
     @Override
     public String toString() {
-        return "Ticket{" +
+        return "Seat{" +
                 "vehicle=" + (vehicle != null ? vehicle.toString() : "null") +
                 ", entryTime=" + (entryTime != null ? entryTime.toString() : "null") +
                 ", number=" + (number != null ? number : "null") +
