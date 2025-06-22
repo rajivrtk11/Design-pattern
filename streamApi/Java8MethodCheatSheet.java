@@ -242,6 +242,14 @@ public class Java8MethodCheatSheet {
 
 //        System.out.println(collect);
 
+        Map<String, List<Employee>> projectToEmployees = employees.stream()
+                .flatMap(emp -> emp.getProjects().stream()
+                        .map(project -> Map.entry(project.getProjectCode(), emp)))
+                .collect(Collectors.groupingBy(
+                        Map.Entry::getKey,
+                        Collectors.mapping(Map.Entry::getValue, Collectors.toList())
+                ));
+
 //      1. forEach(Consumer)
 //      2. filter(Predicate)
 //      3. collect(Collector)

@@ -1,4 +1,4 @@
-Below is an example of a low-level design (LLD) ER diagram for a Google Docs–like system. This diagram models key entities such as Users, Documents, Document Elements (which hold text, images, etc.), Revisions, Comments, and Permissions.
+Below is an example of a low-level design (LLD) ER diagram for a Google Docs–like system. This diagram models key elevatorSystem.entities such as Users, Documents, Document Elements (which hold text, images, etc.), Revisions, Comments, and Permissions.
 
 ---
 
@@ -122,4 +122,4 @@ This allows your application to interpret which part of the text has special for
 
 ---
 
-This ER diagram represents a simplified view of how a Google Docs–like system might be designed at a low level. Depending on specific requirements, you may add more entities or attributes (e.g., for collaboration history, real-time editing, embedded media metadata, etc.). Let me know if you need further details or adjustments!
+This ER diagram represents a simplified view of how a Google Docs–like system might be designed at a low level. Depending on specific requirements, you may add more elevatorSystem.entities or attributes (e.g., for collaboration history, real-time editing, embedded media metadata, etc.). Let me know if you need further details or adjustments!
