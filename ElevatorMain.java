@@ -1,164 +1,184 @@
-// Complete working Elevator System in Java (simplified for console simulation)
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
-import java.util.*;
-
+// Direction.java
 enum Direction {
-    UP, DOWN, IDLE
+    UP,
+    DOWN,
+    IDLE
 }
 
-enum ElevatorState {
-    MOVING, STOPPED, IDLE, DOOR_OPEN
+// Command.java
+interface Command {
+    void execute(Elevator elevator);
+    boolean isComplete(Elevator elevator);
 }
 
-class Request {
-    int floor;
-    Direction direction;
+// PickupCommand.java
+class PickupCommand implements Command {
+    private final int floor;
+    private boolean pickedUp = false;
 
-    public Request(int floor, Direction direction) {
+    PickupCommand(int floor) {
         this.floor = floor;
-        this.direction = direction;
+    }
+
+    @Override
+    public void execute(Elevator elevator) {
+        if (elevator.getCurrentFloor() < floor) elevator.moveUp();
+        else if (elevator.getCurrentFloor() > floor) elevator.moveDown();
+        else {
+            pickedUp = true;
+            System.out.println("Elevator " + elevator.getId() + " picked up at floor " + floor);
+        }
+    }
+
+    @Override
+    public boolean isComplete(Elevator elevator) {
+        return pickedUp;
     }
 }
 
-interface Scheduler {
-    void schedule(List<Elevator> elevators, int floor, Direction direction);
-}
+// DropCommand.java
+class DropCommand implements Command {
+    final int floor;
+    private boolean droppedOff = false;
 
-class DefaultScheduler implements Scheduler {
-    public void schedule(List<Elevator> elevators, int floor, Direction direction) {
-        Elevator bestElevator = null;
-        int minDistance = Integer.MAX_VALUE;
+    DropCommand(int floor) {
+        this.floor = floor;
+    }
 
-        for (Elevator elevator : elevators) {
-            if (elevator.getState() != ElevatorState.MOVING || elevator.getDirection() == direction) {
-                int distance = Math.abs(elevator.getCurrentFloor() - floor);
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    bestElevator = elevator;
-                }
-            }
+    @Override
+    public void execute(Elevator elevator) {
+        if (elevator.getCurrentFloor() < floor) elevator.moveUp();
+        else if (elevator.getCurrentFloor() > floor) elevator.moveDown();
+        else {
+            this.droppedOff = true;
+            System.out.println("Elevator " + elevator.getId() + " dropped off at floor " + floor);
         }
+    }
 
-        if (bestElevator != null) {
-            bestElevator.addDestination(floor);
-        }
+    @Override
+    public boolean isComplete(Elevator elevator) {
+        return this.droppedOff;
     }
 }
 
 class Elevator {
-    private int id;
-    private int currentFloor;
-    private Direction direction;
-    private ElevatorState state;
-    private TreeSet<Integer> destinationFloors;
+    private final int id;
+    private int currentFloor = 0;
+    private Direction direction = Direction.IDLE;
+    private final Queue<Command> commands = new LinkedList<>();
 
-    public Elevator(int id) {
+    Elevator(int id) {
         this.id = id;
-        this.currentFloor = 0;
-        this.direction = Direction.IDLE;
-        this.state = ElevatorState.IDLE;
-        this.destinationFloors = new TreeSet<>();
     }
 
-    public int getCurrentFloor() {
-        return currentFloor;
+    void addCommand(Command command) {
+        commands.offer(command);
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public ElevatorState getState() {
-        return state;
-    }
-
-    public void addDestination(int floor) {
-        destinationFloors.add(floor);
-        updateDirection();
-    }
-
-    private void updateDirection() {
-        if (destinationFloors.isEmpty()) {
+    void step() {
+        if (commands.isEmpty()) {
             direction = Direction.IDLE;
-            state = ElevatorState.IDLE;
-            return;
-        }
-        direction = (destinationFloors.first() > currentFloor) ? Direction.UP : Direction.DOWN;
-        state = ElevatorState.MOVING;
-    }
-
-    public void move() {
-        if (destinationFloors.isEmpty()) {
-            direction = Direction.IDLE;
-            state = ElevatorState.IDLE;
             return;
         }
 
-        if (direction == Direction.UP) {
-            currentFloor++;
-        } else if (direction == Direction.DOWN) {
-            currentFloor--;
+        Command current = commands.peek();
+        current.execute(this);
+
+        if (current.isComplete(this)) {
+            commands.poll();
         }
 
-        System.out.println("Elevator " + id + " at floor: " + currentFloor);
-
-        if (destinationFloors.contains(currentFloor)) {
-            openDoor();
-            destinationFloors.remove(currentFloor);
-            closeDoor();
-            updateDirection();
-        }
+        if (commands.isEmpty()) direction = Direction.IDLE;
     }
 
-    private void openDoor() {
-        state = ElevatorState.DOOR_OPEN;
-        System.out.println("Elevator " + id + " opening door at floor: " + currentFloor);
-    }
+    void moveUp() { currentFloor++; direction = Direction.UP; }
+    void moveDown() { currentFloor--; direction = Direction.DOWN; }
 
-    private void closeDoor() {
-        System.out.println("Elevator " + id + " closing door at floor: " + currentFloor);
-        state = ElevatorState.MOVING;
+    int getCurrentFloor() { return currentFloor; }
+    int getId() { return id; }
+    Direction getDirection() { return direction; }
+    boolean isIdle() { return commands.isEmpty(); }
+
+    @Override
+    public String toString() {
+        return "Elevator " + id + " at floor " + currentFloor + " (" + direction + ")";
     }
 }
 
-class ElevatorSystem {
-    private List<Elevator> elevators;
-    private Scheduler scheduler;
+// ElevatorAssignmentStrategy.java
+interface ElevatorAssignmentStrategy {
+    Elevator selectElevator(List<Elevator> elevators, int sourceFloor);
+}
 
-    public ElevatorSystem(int numberOfElevators) {
-        elevators = new ArrayList<>();
-        for (int i = 0; i < numberOfElevators; i++) {
+// NearestIdleStrategy.java
+class NearestIdleStrategy implements ElevatorAssignmentStrategy {
+    @Override
+    public Elevator selectElevator(List<Elevator> elevators, int sourceFloor) {
+        return elevators.stream()
+                .filter(Elevator::isIdle)
+                .min((a, b) -> Integer.compare(
+                        Math.abs(a.getCurrentFloor() - sourceFloor),
+                        Math.abs(b.getCurrentFloor() - sourceFloor)))
+                .orElse(elevators.get(0));
+    }
+}
+
+// ElevatorSystem.java
+class ElevatorSystem {
+    private static ElevatorSystem instance;
+    private final List<Elevator> elevators;
+    private final ElevatorAssignmentStrategy strategy;
+
+    private ElevatorSystem(int numElevators, ElevatorAssignmentStrategy strategy) {
+        this.strategy = strategy;
+        this.elevators = new ArrayList<>();
+        for (int i = 0; i < numElevators; i++) {
             elevators.add(new Elevator(i));
         }
-        scheduler = new DefaultScheduler();
     }
 
-    public void requestElevator(int floor, Direction direction) {
-        scheduler.schedule(elevators, floor, direction);
-    }
-
-    public void step() {
-        for (Elevator elevator : elevators) {
-            elevator.move();
+    public static ElevatorSystem getInstance(int count, ElevatorAssignmentStrategy strategy) {
+        if (instance == null) {
+            instance = new ElevatorSystem(count, strategy);
         }
+        return instance;
     }
 
-    public void simulate(int steps) {
-        for (int i = 0; i < steps; i++) {
-            System.out.println("--- Step " + (i + 1) + " ---");
-            step();
-        }
+    void requestElevator(int source, int dest) {
+        Elevator selected = strategy.selectElevator(elevators, source);
+        selected.addCommand(new PickupCommand(source));
+        selected.addCommand(new DropCommand(dest));
+        System.out.println("Request (" + source + " → " + dest + ") assigned to Elevator " + selected.getId());
+    }
+
+    void step() {
+        elevators.forEach(Elevator::step);
+    }
+
+    void status() {
+        elevators.forEach(System.out::println);
     }
 }
 
+// ElevatorMain.java
 public class ElevatorMain {
-    public static void main(String[] args) {
-        ElevatorSystem system = new ElevatorSystem(2);
+    public static void main(String[] args) throws InterruptedException {
+        ElevatorSystem system = ElevatorSystem.getInstance(2, new NearestIdleStrategy());
 
-        system.requestElevator(3, Direction.UP);
-        system.requestElevator(5, Direction.DOWN);
-        system.requestElevator(3, Direction.UP);
+        system.requestElevator(2, 5);
+        system.requestElevator(3, 1);
+        system.requestElevator(6, 2);
 
-        system.simulate(10);
+        for (int i = 0; i < 15; i++) {
+            System.out.println("=== STEP " + (i + 1) + " ===");
+            system.step();
+            system.status();
+            Thread.sleep(1000);
+        }
     }
 }
