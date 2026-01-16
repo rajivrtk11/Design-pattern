@@ -168,9 +168,9 @@ public class Java8MethodCheatSheet {
                 .mapToObj(c -> (char) c)
                 .collect(Collectors.groupingBy(c -> c, Collectors.counting()));
 
-        // Step 2: Process the Map using Streams
+//         Step 2: Process the Map using Streams
 
-        // ✅ Convert Map to a List of Strings (formatted as "char=count")
+    // ✅ Convert Map to a List of Strings (formatted as "char=count")
         List<String> charList = charCount.entrySet().stream()
                 .map(entry -> entry.getKey() + "=" + entry.getValue()) // Convert entry to a formatted string
                 .collect(Collectors.toList());
@@ -267,4 +267,38 @@ public class Java8MethodCheatSheet {
 //      15. limit(long maxSize)
 //      16. skip(long n)
     }
+
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+
+        int maxLen = 0, start = 0;
+
+        for(int i = 0; i < n; i++) {
+            Map<Character, Integer> map = new HashMap<>();
+            start = i;
+
+            for(int j = i; j < n; j++) {
+                char key = s.charAt(j);
+
+                // check if key is already present
+                if(map.containsKey(key)) {
+                    map = new HashMap<>();
+                    start = j;
+                }
+
+                if(maxLen < (j - start + 1)) {
+                    maxLen = (j-start+1);
+                }
+
+                map.put(key, 1);
+            }
+        }
+
+        return maxLen;
+    }
+
+
 }
+
+
+

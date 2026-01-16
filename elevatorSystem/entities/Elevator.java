@@ -11,6 +11,7 @@ public class Elevator {
     private long id;
     private ElevatorState elevatorState;
     private int currentFloor;
+    private MOVING_DIRECTION movingDirection;
     List<Integer> destinationsInMovingDirection;
     List<Integer> destinationsInOppositeDirection;
 }

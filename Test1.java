@@ -1,8 +1,5 @@
 import javax.xml.transform.Source;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Test1 {
     public static void main(String[] args) {
@@ -128,5 +125,41 @@ public class Test1 {
        2     1  7   9
          *
         * */
+    }
+
+    private int binarySearch(int[] arr, int x, int n) {
+        int si = 0, ei = n-1;
+        while(si < ei) {
+            int mid = (si+ei)/2;
+            if(arr[mid] < x) si = mid+1;
+            else ei = mid;
+        }
+
+        return ei;
+    }
+
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        int n = arr.length;
+
+        List<Integer> list = new ArrayList<>();
+        for(int ele: arr) list.add(ele);
+
+        if(x <= arr[0]) return list.subList(0, k);
+        else if(x >= arr[n-1]) return list.subList(n-k, n);
+        else {
+            int idx = binarySearch(arr, x, n);
+
+            int si = Math.max(0, idx-k);
+            int ei = Math.max(n-1, idx+k);
+
+            while((ei - si + 1) > k) {
+                if(arr[ei] - x < x - arr[si]) ei--;
+                else si++;
+            }
+
+            return list.subList(si, ei);
+        }
+
+
     }
 }

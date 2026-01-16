@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 // Direction.java
 enum Direction {
@@ -121,9 +118,7 @@ class NearestIdleStrategy implements ElevatorAssignmentStrategy {
     public Elevator selectElevator(List<Elevator> elevators, int sourceFloor) {
         return elevators.stream()
                 .filter(Elevator::isIdle)
-                .min((a, b) -> Integer.compare(
-                        Math.abs(a.getCurrentFloor() - sourceFloor),
-                        Math.abs(b.getCurrentFloor() - sourceFloor)))
+                .min(Comparator.comparingInt(a -> Math.abs(a.getCurrentFloor() - sourceFloor)))
                 .orElse(elevators.get(0));
     }
 }
